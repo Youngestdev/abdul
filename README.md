@@ -3,7 +3,7 @@ Its a simple NodeJs module ..
 
 
 # Installing ..
-You can install this by running  `npm install abdul ` .
+You can install this by running  `npm install -g abdul ` .
 
 # How to use ?
 
