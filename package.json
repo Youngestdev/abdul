@@ -1,0 +1,8 @@
+{
+  "name": "abdul",
+  "version": "1.3.1",
+  "description": "first npm module",
+  "main": "index.js",
+  "author": "Abdulazeez Abdulazeez Adeshina <laisibizness@gmail.com> (http://twitter.com/kvng_zeez)",
+  "license": "MIT"
+}
