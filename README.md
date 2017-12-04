@@ -1,26 +1,6 @@
-# My first NPM Module
-Its a simple NodeJs module ..
+# Hello World Module.
 
+My first npm module... Its a single file module ..  It logs Hello World once run with the command ``` node example.js ```
 
-# Installing ..
-You can install this by running  `npm install -g abdul ` .
+ ## Cheers .!
 
-# How to use ?
-
-create a new file e.g intor.js and write the below code
-
-```javascript
-// intro.js
-
-const say = require("abdul" );
-
-// var say = require("abdul"); .. If you are using ES5 syntax
-
-say("Hi there, I'm testing this NPM module");
-
-```
-
-So to veiw the result, run it with ` node intro.js ` .
-
-
-Cheers !

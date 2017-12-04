@@ -1,9 +1,9 @@
-// Lets be strict!
+// I'll be strict
 "use strict";
 
-// defining our module
-module.exports = function say(something){
-    // log our functions value to the console.
-    return console.log(something);
-}
+// Declare var to output message ..
 
+let Msg = console.log("Hello World");
+
+// Logs Hello World to the console.. !
+module.exports = Msg;
