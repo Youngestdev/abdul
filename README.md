@@ -3,14 +3,13 @@ Its a simple NodeJs module ..
 
 
 # Installing ..
-You can install this by running  ``` npm install abdul ``` .
+You can install this by running  `npm install abdul ` .
 
 # How to use ?
 
-Edit the sayHello.js and change the value in the **say** function... or you can create a new file e.g
+create a new file e.g intor.js and write the below code
 
-```
-js
+```javascript
 // intro.js
 
 const say = require("abdul" 1.3.2);
@@ -21,7 +20,7 @@ say("Hi there, I'm testing this NPM module");
 
 ```
 
-So to veiw the result, run it with ``` node intro.js ``` .
+So to veiw the result, run it with ` node intro.js ` .
 
 
 Cheers !
