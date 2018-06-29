@@ -171,3 +171,183 @@ ReactDOM.render(
 );
 {% endraw %}
 {% endhighlight %}
+
+### Building the main interface.
+We've been working on the state management with Redux and neglected the end output. Well, let's navigate to our App.js and replace the code in it with the one below:
+
+{% highlight js %}
+{% raw %}
+import React from "react";
+import { connect } from "react-redux";
+import actions from "./actions";
+import "./App.css";
+
+// Define our component.
+function App({ food, searchTerm, searchTermChanged }) {
+  return (
+    <div>
+      <form>
+        <div className="search">
+          <input
+            type="text"
+            name="search"
+            placeholder="Search"
+            value={searchTerm}
+            onChange={e => searchTermChanged(e.target.value)}
+          />
+        </div>
+      </form>
+      <table>
+        <thead>
+          <tr style={{ textAlign: "center" }}>
+            <th>Name</th>
+            <th>Origin</th>
+            <th>Continent</th>
+          </tr>
+        </thead>
+        <tbody>
+          {food.map(theFood => (
+            <tr key={theFood.name}>
+              <td>{theFood.name}</td>
+              <td>{theFood.origin}</td>
+              <td>{theFood.continent}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+// Export our component.
+export default connect(store => store, actions)(App);
+{% endraw %}
+{% endhighlight %}
+> Connect as used in the export statement, is a High Order Component (HOC) that enables the accessibility and availability of different set of properties of a state to children component.
+
+Let's power on our engine finally, run the command:
+```sh
+sudo npm run start
+<!-- or -->
+npm run start
+```
+
+### Beautifying Output.
+I bet the output looks rough, so let's replace the content in the App.css with this:
+{% highlight css %}
+{% raw %}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th {
+  background-color: #eee;
+}
+
+input {
+  min-width: 300px;
+  border: 1px solid #999;
+  border-radius: 2px;
+  line-height: 25px;
+}
+{% endraw %}
+{% endhighlight %}
+
+### Pheew. Done and Dusted.
+Well, we're actually through with our redux version. As I said earlier, redux isn't necessarily needed as the size of the app matter talkless of the introduction of the new context API.
+#### So What's a Context API ?
+Context provides a way to pass data through the component tree without having to pass props down manually at every level. In React, data is often passed from a parent to its child component as a prop. —Context, React.
+##### Is the Context API a new thing ?
+No, it isn't. Even Redux uses the context API; <Provider />
+#### Using the new React Context API - Things to take note of.
+Using the new Context API depends on three main steps:
+1. Passing the initial state to React.createContext. This function then returns an object with a Provider and a Consumer.
+2. Using the Provider component at the top of the tree and making it accept a prop called value. This value can be anything!
+3. Using the Consumer component anywhere below the Provider in the component tree to get a subset of the state.
+
+### Rewritting Our App - Moving From Redux To Context API.
+Sigh, we won't really do alot of work anymore. Migrating from Redux to the new Context API is quite easy.
+The first step is removing **every** trace of **Redux** from our app. We'll start by removing the libraries from our app.
+```sh
+npm rm redux react-redux
+```
+Then, we remove the below codes from App.js
+```js
+// Remove these lines of code.
+import {connect} from 'react-redux';
+import actions from './actions';
+```
+and replace the last line of App.js from `export default connect(store => store, actions)(App);` to `export default App;`.
+
+With these changes in place, we can rewrite your app with React Context API. So, to convert the previous app from a Redux powered app to using the Context API, we will need a context to store the app's data (this context will replace the Redux Store). Also, we will need a Context.Provider component which will have a state, props, and a normal React component lifecycle.
+Therefore, we will create a *providers.js* file in the **src** folder and add the following code to it:
+```js
+ import React from 'react'; 
+ import Food from './food';
+
+const DEFAULT_STATE = { allFood: Food, searchTerm: '', };
+export const ThemeContext = React.createContext(DEFAULT_STATE);
+export default class Provider extends React.Component { state = DEFAULT_STATE;
+searchTermChanged = searchTerm => { this.setState({searchTerm}); };
+render() { 
+    return ( 
+        <ThemeContext.Provider value={{ ...this.state, searchTermChanged: this.searchTermChanged, }} > {this.props.children} </ThemeContext.Provider> ); } }
+```
+The Provider class is responsible for encapsulating other components inside the ThemeContext.Provider so these components can have access to our app's state and to the searchTermChanged function that provides a way to change this state.
+
+To consume these values later in the component tree, we will need to create a `ThemeContext.Consumer` component. This component will need a render function that will receive the above value props as arguments to use at will. So, create another file called **consumer.js** in the src directory and write the following code into it:
+```js
+import React from 'react';
+import {ThemeContext} from './provider';
+
+export default class Consumer extends React.Component {
+  render() {
+    const {children} = this.props;
+
+    return (
+      <ThemeContext.Consumer>
+        {({allFood, searchTerm, searchTermChanged}) => {
+          const food = searchTerm
+            ? allFood.filter(
+              food =>
+                food.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+            )
+            : allFood;
+
+          return React.Children.map(children, child =>
+            React.cloneElement(child, {
+              food,
+              searchTerm,
+              searchTermChanged,
+            })
+          );
+        }}
+      </ThemeContext.Consumer>
+    );
+  }
+}
+```
+Now, to finalise the migration, we will open our index.js file and inside the render() function, wrap the App component with the Consumer component. Also, wrap the Consumer inside the Providercomponent. Exactly as shown here:
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Provider from './provider';
+import Consumer from './consumer';
+import App from './App';
+
+ReactDOM.render(
+  <Provider>
+    <Consumer>
+      <App />
+    </Consumer>
+  </Provider>,
+  document.getElementById('root')
+);
+```
+### Voom..
+We're finally done !. Yipee.
+
+# Conclusion.
+We surely prefer the Contextual API method of handling state management right ? Yes. But this should be taken note of:
+> Redux should be used in Large scall react apps as Context API might slow dowb react apps. It isn't advisable to use Redux for byte-sized projects instead, use the context API.
