@@ -150,3 +150,24 @@ The react-redux library comes to play in a few seconds. The library has a compon
 
 ### Creating the store & Constructing state's general availability.
 We'll now create a Store using all the details written down in the reducers file, we'll replace the pre-existing code in `index.js` with the one below:
+{% highlight js %}
+{% raw %}
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
+import reducers from './reducers';
+import App from './App';
+
+// Creating the store using the reducers info.
+// That's because reducers are the building blocks of a Redux Store.
+const store = createStore(reducers);
+
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById('root');
+);
+{% endraw %}
+{% endhighlight %}
