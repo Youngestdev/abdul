@@ -127,3 +127,18 @@ export default [
 ];
 {% endraw %}
 {% endhighlight %}
+
+Let's navigate into our actions.js file. In our actions.js file, we define the SEARCH_INPUT_CHANGED action as defined in the *reducers.js* file.
+{% highlight js %}
+{% raw %}
+function searchTermChanged(searchTerm) {
+    return {
+        // define action type
+        type: 'SEARCH_INPUT_CHANGED',
+        // define action payload
+        payload: {searchTerm},
+    };
+}
+export default {
+    searchTermChanged,
+    };
