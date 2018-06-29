@@ -142,3 +142,11 @@ function searchTermChanged(searchTerm) {
 export default {
     searchTermChanged,
     };
+{% endraw %}
+{% endhighlight %}
+
+The react-redux library comes to play in a few seconds. The library has a component, **Provider** that makes our Redux Store available to the rest of our app's component.
+> Providers make our app's state available to all components, to achieve state's availability, we'll encapsulate the *App* component into a Provider.
+
+### Creating the store & Constructing state's general availability.
+We'll now create a Store using all the details written down in the reducers file, we'll replace the pre-existing code in `index.js` with the one below:
