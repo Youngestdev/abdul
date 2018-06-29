@@ -10,3 +10,7 @@ Redux is a javascript library used for state management in popular javascript li
 - To change the state, you need to dispatch an action that describes what needs to happen.
 * You cannot change properties of objects or make changes to existing arrays. You should always return a new reference to a new object or new array.
 
+# Back to business - Building our test App.
+Since we'll be demonstrating how React's new Context API replaces Redux, we'll build our app first using Redux for state management and second using React's new Context API.
+## Building the Redux app.
+If you don't have a basic understanding of Redux, no worries as we won't dive alot into Redux and basic terms will be explained in the course of building.
