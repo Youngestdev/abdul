@@ -94,3 +94,36 @@ export default function food(state = initialState, action) {
 {% endhighlight %}
 > Actions are payloads of information that send data from your application to your store. They are the only source of information for the store.
 
+Remember we created a **Food.js** file, we imported it's content in the *reducer.js* file. But, it's empty, let's write some code.
+I'll be writing some examples of food and their origin in an object form enclosed in an array *as per react rules*.
+{% highlight js %}
+{% raw %}
+export default [
+  {
+    name: "Chineese Rice",
+    origin: "China",
+    continent: "Asia"
+  },
+  {
+    name: "Amala",
+    origin: "Nigeria",
+    continent: "Africa"
+  },
+  {
+    name: "Banku",
+    origin: "Ghana",
+    continent: "Africa"
+  },
+  {
+    name: "Pão de Queijo (Brazillian cheese bread",
+    origin: "Brazil",
+    continent: "South America"
+  },
+  {
+    name: "Ewa Agoyin",
+    origin: "Nigeria",
+    continent: "Africa"
+  }
+];
+{% endraw %}
+{% endhighlight %}
