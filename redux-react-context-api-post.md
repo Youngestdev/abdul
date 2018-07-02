@@ -350,4 +350,4 @@ We're finally done !. Yipee.
 
 # Conclusion.
 We surely prefer the Contextual API method of handling state management right ? Yes. But this should be taken note of:
-> Redux should be used in Large scall react apps as Context API might slow dowb react apps. It isn't advisable to use Redux for byte-sized projects instead, use the context API.
+> Redux should be used in Large scale react apps as Context API might slow dowb react apps. It isn't advisable to use Redux for byte-sized projects instead, use the context API.
